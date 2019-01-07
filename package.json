@@ -1,0 +1,41 @@
+{
+  "name": "yit_fe_ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
+    "build:client": "webpack --config build/webpack.config.client.js",
+    "build:server": "webpack --config build/webpack.config.server.js",
+    "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",
+    "clear": "rm -rf dist",
+    "build": "yarn clear && yarn build:client && yarn build:server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "cross-env": "^5.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.6.3",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-middleware": "^3.5.0",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-hot-middleware": "^2.24.3"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "http-proxy-middleware": "^0.19.1",
+    "koa": "^2.6.2",
+    "koa-connect": "^2.0.1",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
+    "memory-fs": "^0.4.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
+}

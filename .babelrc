@@ -1,0 +1,14 @@
+{
+    // 预官方不推荐babel-preset-es2015,推荐使用babel-preset-env
+    // babel7.x版本的预设写法为 @babel/preset-xxx（6.x写法直接是xxx）
+    "presets": [ "@babel/preset-env", "@babel/preset-react" ],
+    "env": {
+        //热替换仅仅用于开发环境因此只有开发环境包含
+        "development": {
+            "plugins": [
+                //react热替换插件
+                "react-hot-loader/babel"
+            ]
+        }
+    }
+}
