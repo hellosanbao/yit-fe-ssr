@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
     "koa": "^2.6.2",
     "koa-connect": "^2.0.1",
@@ -36,6 +38,7 @@
     "koa-send": "^5.0.0",
     "memory-fs": "^0.4.1",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "serve-favicon": "^2.5.0"
   }
 }

@@ -23,7 +23,7 @@ class App extends React.Component {
     render(){
         return (
             <div>
-                <p>count1:{this.state.count1}</p>
+                <p>count12:{this.state.count1}</p>
                 <p>count2:{this.state.count2}</p>
                 <button onClick = {this.addCount1}>count1+</button>
                 <button onClick = {this.addCount2}>count2+</button>

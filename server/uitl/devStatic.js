@@ -32,11 +32,11 @@ webpackCompiler.watch({},(err,stats) => {
     serverBundle = eval(bundle).default 
 })
 
-module.exports = (router)=>{
-    router.all('*',async (ctx)=>{
+module.exports = (app)=>{
+    app.get('*',async (req,res,next)=>{
         const template = await getTemplate()
         const content = reactDomServer.renderToString(serverBundle)
-        ctx.body = template.replace('<!-- app -->',content)
+        res.end(template.replace('<!-- app -->',content))
     })
 }
 
