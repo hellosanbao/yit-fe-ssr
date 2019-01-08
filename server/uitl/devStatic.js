@@ -12,7 +12,7 @@ const webpackCompiler = webpack(serverConfig)
 let serverBundle
 
 const getTemplate = () => {
-    const fetchUrl = `http://${devServerConfig.host}:${devServerConfig.port}${devServerConfig.publicPath}index.html`
+    const fetchUrl = `${devServerConfig.publicPath}index.html`
     return new Promise((resolve,reject)=>{
         axios.get(fetchUrl)
         .then(res=>{
@@ -32,11 +32,12 @@ webpackCompiler.watch({},(err,stats) => {
     serverBundle = eval(bundle).default 
 })
 
-module.exports = (router)=>{
-    router.all('*',async (ctx)=>{
+module.exports = (app)=>{
+    app.use(async(ctx,next)=>{
         const template = await getTemplate()
         const content = reactDomServer.renderToString(serverBundle)
         ctx.body = template.replace('<!-- app -->',content)
+        next()
     })
 }
 

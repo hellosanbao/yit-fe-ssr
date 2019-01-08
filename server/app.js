@@ -1,22 +1,14 @@
 const Koa = require('koa')
-const Router = require('koa-router')
 const static = require('./middleware/static')
 const ReactSSR = require('react-dom/server')
 const fs = require('fs')
 const path = require('path')
 const devSatic = require('./uitl/devStatic')
-const c2k = require('koa-connect')
-const proxy = require('http-proxy-middleware')
 
 const app = new Koa()
-const router = new Router()
 
 //获取NODE_ENV变量
 const NODE_ENV = process.env.NODE_ENV
-app.use(async(ctx,next)=>{
-    console.log(ctx.path)
-    await next()
-})
 //生产环境
 if(NODE_ENV!='development'){
     const serverEntry = require('../dist/server-entry').default
@@ -33,18 +25,9 @@ if(NODE_ENV!='development'){
         ctx.body = renderString
     })
 }else{
-    var filter = function(pathname, req) {
-        return pathname.match('^/static') && pathname.indexOf('hot-update.json')<0 && req.method === 'GET'
-    }
-    app.use(c2k(proxy(filter,{ 
-        target:'http://0.0.0.0:8080',
-        changeOrigin:true,
-        ws: true
-    })))
     // 开发环境
-    devSatic(router)
+    devSatic(app)
 }
-app.use(router.routes())   //应用路由
 app.listen(3333,'0.0.0.0') //监听3333端口
 
 console.log('server start listrn http://0.0.0.0:3333')

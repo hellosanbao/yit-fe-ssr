@@ -1,5 +1,7 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
+import { setConfig } from 'react-hot-loader'
+setConfig({ logLevel: 'debug' })
 class App extends React.Component {
     constructor(props){
         super(props)
@@ -23,7 +25,7 @@ class App extends React.Component {
     render(){
         return (
             <div>
-                <p>count1:{this.state.count1}</p>
+                <p>count10:{this.state.count1}</p>
                 <p>count2:{this.state.count2}</p>
                 <button onClick = {this.addCount1}>count1+</button>
                 <button onClick = {this.addCount2}>count2+</button>
@@ -33,3 +35,4 @@ class App extends React.Component {
 }
 //使用react-hot-loader的api包裹app组件，实现热替换功能
 export default hot(module)(App)
+// export default App
