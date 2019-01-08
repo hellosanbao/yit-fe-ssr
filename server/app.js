@@ -33,7 +33,14 @@ if(NODE_ENV!='development'){
         ctx.body = renderString
     })
 }else{
-    app.use(c2k(proxy('/static',{ target:'http://0.0.0.0:8080',changeOrigin:true})))
+    var filter = function(pathname, req) {
+        return pathname.match('^/static') && pathname.indexOf('hot-update.json')<0 && req.method === 'GET'
+    }
+    app.use(c2k(proxy(filter,{ 
+        target:'http://0.0.0.0:8080',
+        changeOrigin:true,
+        ws: true
+    })))
     // 开发环境
     devSatic(router)
 }
