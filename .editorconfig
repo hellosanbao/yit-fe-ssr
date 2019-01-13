@@ -1,0 +1,15 @@
+root = true
+
+[*]
+#字符集设置成utf-8
+charset = utf-8
+#空格缩进
+indent_style = space
+#缩进大小为两个空格
+indent_size = 2
+#行末符号设置为lf
+end_of_line = lf
+#末尾自动加空行
+insert_final_newline = true
+#去掉行尾的空格
+trim_trailing_whitespace = true

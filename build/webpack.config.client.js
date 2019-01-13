@@ -25,9 +25,15 @@ const config = {
     module: {
         rules: [
             {
+                enforce:'pre',
+                test: /.(js|jsx)$/,
+                loader: 'eslint-loader',
+                exclude:[path.resolve('../node_modules')]
+            },
+            {
                 test: /.(js|jsx)$/,
                 loader: 'babel-loader',
-                exclude:[path.join(__dirname,'../node_modules')]
+                exclude:[path.resolve('../node_modules')]
             }
         ]
     },

@@ -9,7 +9,13 @@
     "build:server": "webpack --config build/webpack.config.server.js",
     "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",
     "clear": "rm -rf dist",
-    "build": "yarn clear && yarn build:client && yarn build:server"
+    "build": "yarn clear && yarn build:client && yarn build:server",
+    "lint": "eslint --ext .js --ext .jsx client/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +25,9 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "cross-env": "^5.2.0",
+    "eslint": "^5.12.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.3.1",
     "react-hot-loader": "^4.6.3",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
@@ -29,6 +37,16 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-eslint": "^10.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.3",
+    "eslint-plugin-standard": "^4.0.0",
     "koa": "^2.6.2",
     "koa-send": "^5.0.0",
     "memory-fs": "^0.4.1",
