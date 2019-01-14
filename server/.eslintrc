@@ -1,4 +1,7 @@
 {
-    "extends": "standard"
-
+  "extends": "standard",
+  "rules": {
+    "eqeqeq": 0,
+    "new-parens": 0
+  }
 }
