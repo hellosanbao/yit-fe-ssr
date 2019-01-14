@@ -4,11 +4,13 @@ import {
   observer,
   inject,
 } from 'mobx-react'
-import AppState from '../../store'
 
 @inject('appState')
 @observer
 class Home extends Component {
+  static propTypes = {
+    appState: PropTypes.object,
+  };
   componentDidMount() {
     // do sth...
   }
@@ -19,15 +21,11 @@ class Home extends Component {
       <div>
         home page
         {
-          appState
+          appState.count
         }
       </div>
     )
   }
-}
-
-Home.propTypes = {
-  appState: PropTypes.instanceOf(AppState).isRequired,
 }
 
 export default Home

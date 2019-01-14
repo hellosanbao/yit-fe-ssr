@@ -6,8 +6,8 @@ import App from './views/App'
 import appState from './store'
 
 ReactDOM.hydrate(
-  <Provider>
-    <BrowserRouter appState={appState}>
+  <Provider appState={appState}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,

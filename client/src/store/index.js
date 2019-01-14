@@ -1,8 +1,7 @@
 import {
   observable,
-  computed,
-  autorun,
   action,
+  computed,
 } from 'mobx'
 
 class AppState {
@@ -10,25 +9,14 @@ class AppState {
 
   @observable name = "宝爷"
 
-  @action
-  add() {
+  @action add() {
     this.count += 1
   }
-
-  @computed
-  get msg() {
-    return this.count
+  @computed get total() {
+    return this.count;
   }
 }
 
 const appState = new AppState()
-
-autorun(() => {
-  console.log(appState.msg)
-})
-
-setInterval(() => {
-  appState.add()
-}, 1000)
 
 export default appState
