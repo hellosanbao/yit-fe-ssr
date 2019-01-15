@@ -1,33 +1,33 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import {
   observer,
   inject,
 } from 'mobx-react'
-import AppState from '../../store'
 
-@inject('appState')
+@inject('home')
 @observer
 class Home extends Component {
   componentDidMount() {
+    const { home: { getDataSource } } = this.props
+    setTimeout(() => {
+      getDataSource(' kkkkkk')
+    }, 1000)
     // do sth...
   }
 
   render() {
-    const { appState } = this.props
+    const { home: { dataSource } } = this.props
+
+    console.log(dataSource)
     return (
       <div>
         home page
         {
-          appState
+          dataSource
         }
       </div>
     )
   }
-}
-
-Home.propTypes = {
-  appState: PropTypes.instanceOf(AppState).isRequired,
 }
 
 export default Home
