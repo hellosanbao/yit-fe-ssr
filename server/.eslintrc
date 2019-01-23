@@ -2,6 +2,8 @@
   "extends": "standard",
   "rules": {
     "eqeqeq": 0,
-    "new-parens": 0
+    "new-parens": 0,
+    "no-console":0,
+    "func-names":0
   }
 }

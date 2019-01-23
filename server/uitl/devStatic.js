@@ -2,6 +2,8 @@ const axios = require('axios')
 const MemoryFs = require('memory-fs')
 const webpack = require('webpack')
 const reactDomServer = require('react-dom/server')
+const bootstrap = require('react-async-bootstrapper')
+const ejs = require('ejs')
 const path = require('path')
 const mfs = new MemoryFs
 
@@ -9,10 +11,10 @@ const serverConfig = require('../../build/webpack.config.server')
 const devServerConfig = require('../../build/decServerConfig')
 
 const webpackCompiler = webpack(serverConfig)
-let serverBundle
+let serverBundle, creatAppStore
 
 const getTemplate = () => {
-  const fetchUrl = `${devServerConfig.publicPath}index.html`
+  const fetchUrl = `${devServerConfig.publicPath}server.ejs`
   return new Promise((resolve, reject) => {
     axios.get(fetchUrl)
       .then(res => {
@@ -30,13 +32,38 @@ webpackCompiler.watch({}, (err, stats) => {
   const bundlePath = path.join(serverConfig.output.path, serverConfig.output.filename)
   const bundle = mfs.readFileSync(bundlePath, 'utf-8')
   serverBundle = eval(bundle).default // eslint-disable-line
+  creatAppStore = eval(bundle).creatAppStore // eslint-disable-line
 })
+
+const getStores = (stores) => {
+  return Object.keys(stores).reduce((result, storeName) => {
+    result[storeName] = stores[storeName].toJson()
+    return result
+  }, {})
+}
 
 module.exports = (app) => {
   app.use(async (ctx, next) => {
-    const template = await getTemplate()
-    const content = reactDomServer.renderToString(serverBundle)
-    ctx.body = template.replace('<!-- app -->', content)
-    next()
+    if (!ctx.url.startsWith('/api')) {
+      const routerContext = {}
+      const stores = creatAppStore()
+      const app = serverBundle(stores, routerContext, ctx.url)
+      await bootstrap(app)
+      // bootstrap(app).then(async (ctx) => {
+      const template = await getTemplate()
+      const content = reactDomServer.renderToString(app)
+      if (routerContext.url) {
+        ctx.status = 302
+        ctx.set('Location', routerContext.url)
+      }
+      const state = getStores(stores)
+      ctx.body = ejs.render(template, {
+        appString: content,
+        initialState: JSON.stringify(state)
+      })
+      // ctx.body = template.replace('<!-- app -->', content)
+      // })
+      next()
+    }
   })
 }

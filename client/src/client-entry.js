@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import App from './views/App'
-import appState from './store'
+import AppState from './store'
 
+const initialState = window.__INITIAL_STATE__ || {} // eslint-disable-line
 ReactDOM.hydrate(
-  <Provider appState={appState}>
+  <Provider appState={new AppState(initialState.appState)}>
     <BrowserRouter>
       <App />
     </BrowserRouter>

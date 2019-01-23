@@ -5,18 +5,27 @@ import {
 } from 'mobx'
 
 class AppState {
-  @observable count = 0
+  constructor({ count, name } = { count: 0, name: 'baoye' }) {
+    console.log(count, name)
+    this.count = count
+    this.name = name
+  }
+  @observable count
 
-  @observable name = "宝爷"
+  @observable name
 
   @action add() {
     this.count += 1
   }
   @computed get total() {
-    return this.count;
+    return this.count * 3;
+  }
+  toJson() {
+    return {
+      count: this.count,
+      name: this.name,
+    }
   }
 }
 
-const appState = new AppState()
-
-export default appState
+export default AppState

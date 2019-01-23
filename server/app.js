@@ -3,10 +3,24 @@ const staticMiddleware = require('./middleware/static')
 const ReactSSR = require('react-dom/server')
 const fs = require('fs')
 const path = require('path')
+const koaBody = require('koa-body')
+const Router = require('koa-router')
+const initApi = require('./api')
 const devSatic = require('./uitl/devStatic')
 const koaFavicon = require('koa-favicon')
 
 const app = new Koa()
+// 格式化post请求参数
+app.use(koaBody())
+
+// api相关
+const router = new Router({
+  prefix: '/api'
+})
+// 加载路由
+initApi(router)
+// 应用路由
+app.use(router.routes())
 
 // 获取NODE_ENV变量
 const NODE_ENV = process.env.NODE_ENV
@@ -20,7 +34,7 @@ if (NODE_ENV != 'development') {
   app.use(staticMiddleware('/static', path.join(__dirname, '../dist/')))
 
   app.use(async (ctx, next) => {
-    if (ctx.method == 'GET') {
+    if (ctx.method == 'GET' && !ctx.url.startsWith('/api')) {
       // 使用renderToString方法将serverEntry的内容转化成返回给客户端的字符串
       let renderString = ReactSSR.renderToString(serverEntry)
       // 将转化后的字符串替换到模板中<!-- app -->标记的位置，然后返回给客户端

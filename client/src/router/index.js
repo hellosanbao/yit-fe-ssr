@@ -1,11 +1,12 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import Home from '../views/home'
 import ProductDetail from '../views/productDetail'
 
 export default () => (
-  <div>
+  <Switch>
     <Route path="/" exact component={Home} />
     <Route path="/ProductDetail" exact component={ProductDetail} />
-  </div>
+    <Redirect to="/ProductDetail" />
+  </Switch>
 )

@@ -25,6 +25,11 @@ const config = webpacMerge(baseConfig,{
     new htmlWebpackPlugin({
       //定义模板为client下的index.html
       template: path.join(__dirname, '../client/src/index.html')
+    }),
+    new htmlWebpackPlugin({
+      //定义模板为服务端渲染的模板文件
+      template: '!!ejs-compiled-loader!'+path.join(__dirname, '../client/src/server.ejs'),
+      filename:'server.ejs'
     })
   ]
 })

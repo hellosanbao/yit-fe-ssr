@@ -5,7 +5,7 @@ module.exports = webpacMerge(baseConfig,{
   //webpack打包内容的执行环境设置成node执行环境
   target: 'node',
   //打包模式，默认为production，会压缩打包的代码，开发模式设置成development可以提高打包速度
-  mode: 'development',
+  // mode: 'development',
   //入口
   entry: {
     main: path.join(__dirname, '../client/src/server-entry.js')

@@ -21,6 +21,9 @@ module.exports = {
     historyApiFallback:{
         index:'/static/index.html'
     },
+    proxy:{
+      '/api':'http://0.0.0.0:3333'
+    },
     setup: function(app) {
         app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*') // 第二个参数表示允许跨域的域名，* 代表所有域名
