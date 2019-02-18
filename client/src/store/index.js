@@ -6,7 +6,6 @@ import {
 
 class AppState {
   constructor({ count, name } = { count: 0, name: 'baoye' }) {
-    console.log(count, name)
     this.count = count
     this.name = name
   }

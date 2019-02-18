@@ -8,6 +8,7 @@ const Router = require('koa-router')
 const initApi = require('./api')
 const devSatic = require('./uitl/devStatic')
 const koaFavicon = require('koa-favicon')
+const { exec } = require('child_process')
 
 const app = new Koa()
 // 格式化post请求参数
@@ -48,6 +49,8 @@ if (NODE_ENV != 'development') {
   // 开发环境
   devSatic(app)
 }
-app.listen(3333, '0.0.0.0') // 监听3333端口
 
+app.listen(3333, '0.0.0.0') // 监听3333端口
+exec('yarn dev:client')
 console.log('server start listrn http://0.0.0.0:3333')
+console.log('and client start listrn http://0.0.0.0:8080')

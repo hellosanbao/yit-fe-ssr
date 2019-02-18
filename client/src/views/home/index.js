@@ -5,6 +5,7 @@ import {
   observer,
   inject,
 } from 'mobx-react'
+import { Helmet } from 'react-helmet'
 
 @inject('appState')
 @observer
@@ -40,6 +41,9 @@ class Home extends Component {
   render() {
     return (
       <div onClick={this.addCount}>
+        <Helmet>
+          <title>My Title1</title>
+        </Helmet>
         <p>home page button</p>
         <p>total {this.props.appState.total}</p>
       </div>

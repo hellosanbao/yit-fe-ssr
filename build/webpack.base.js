@@ -9,6 +9,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  // externals: ['react-helmet','react'],
   module: {
     rules: [
       {
